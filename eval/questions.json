@@ -1,0 +1,242 @@
+[
+  {
+    "question": "What is the main purpose of the Digital Personal Data Protection Act, 2023?",
+    "expected_answer": "It provides for processing digital personal data while recognising individuals’ right to protect their personal data and the need to process it for lawful purposes.",
+    "source": "Digital-Personal-Data-Protection-Act-2023.pdf",
+    "page": 1
+  },
+  {
+    "question": "Who is a Data Fiduciary under the Digital Personal Data Protection Act, 2023?",
+    "expected_answer": "A person who alone or together with others determines the purpose and means of processing personal data.",
+    "source": "Digital-Personal-Data-Protection-Act-2023.pdf",
+    "page": 2
+  },
+  {
+    "question": "Who is a Data Principal under the Digital Personal Data Protection Act, 2023?",
+    "expected_answer": "The individual to whom the personal data relates; for a child it includes the parents or lawful guardian, and for a person with disability it includes the lawful guardian acting on their behalf.",
+    "source": "Digital-Personal-Data-Protection-Act-2023.pdf",
+    "page": 2
+  },
+  {
+    "question": "What is a personal data breach under the DPDP Act, 2023?",
+    "expected_answer": "Unauthorised processing of personal data or accidental disclosure, acquisition, sharing, use, alteration, destruction, or loss of access that compromises its confidentiality, integrity, or availability.",
+    "source": "Digital-Personal-Data-Protection-Act-2023.pdf",
+    "page": 3
+  },
+  {
+    "question": "When does the DPDP Act apply to processing outside India?",
+    "expected_answer": "It applies to processing outside India when that processing is connected with an activity related to offering goods or services to Data Principals within India.",
+    "source": "Digital-Personal-Data-Protection-Act-2023.pdf",
+    "page": 4
+  },
+  {
+    "question": "What are the two grounds on which personal data may be processed under section 4 of the DPDP Act?",
+    "expected_answer": "The Data Principal’s consent or certain legitimate uses, and the processing must be for a lawful purpose.",
+    "source": "Digital-Personal-Data-Protection-Act-2023.pdf",
+    "page": 4
+  },
+  {
+    "question": "What information must a notice for consent provide under section 5 of the DPDP Act?",
+    "expected_answer": "It must describe the personal data and purpose of processing, how the Data Principal can exercise relevant rights, and how to complain to the Data Protection Board.",
+    "source": "Digital-Personal-Data-Protection-Act-2023.pdf",
+    "page": 5
+  },
+  {
+    "question": "What qualities must consent have under section 6 of the DPDP Act?",
+    "expected_answer": "Consent must be free, specific, informed, unconditional, and unambiguous, expressed through clear affirmative action, and limited to personal data necessary for the specified purpose.",
+    "source": "Digital-Personal-Data-Protection-Act-2023.pdf",
+    "page": 5
+  },
+  {
+    "question": "Can a Data Principal withdraw consent under the DPDP Act?",
+    "expected_answer": "Yes. Consent may be withdrawn at any time, and withdrawing it should be as easy as giving it. Withdrawal does not affect the legality of processing based on consent before withdrawal.",
+    "source": "Digital-Personal-Data-Protection-Act-2023.pdf",
+    "page": 6
+  },
+  {
+    "question": "Who is considered a child under the DPDP Act, 2023?",
+    "expected_answer": "An individual who has not completed eighteen years of age.",
+    "source": "Digital-Personal-Data-Protection-Act-2023.pdf",
+    "page": 2
+  },
+  {
+    "question": "What is prompt injection in an LLM application?",
+    "expected_answer": "Prompt injection is a vulnerability in which crafted input changes an LLM’s behaviour in unintended ways, potentially causing it to ignore instructions or perform unauthorised actions.",
+    "source": "OWASP-Top-10-for-LLMs-v2025.pdf",
+    "page": 7
+  },
+  {
+    "question": "Name the OWASP Top 10 for LLM Applications 2025 risk categories.",
+    "expected_answer": "Prompt Injection; Sensitive Information Disclosure; Supply Chain; Data and Model Poisoning; Improper Output Handling; Excessive Agency; System Prompt Leakage; Vector and Embedding Weaknesses; Misinformation; and Unbounded Consumption.",
+    "source": "OWASP-Top-10-for-LLMs-v2025.pdf",
+    "page": 3
+  },
+  {
+    "question": "What is sensitive information disclosure in LLM applications?",
+    "expected_answer": "It is the risk that an LLM application exposes sensitive data, such as personal information, confidential business data, credentials, or other protected information through its outputs or behaviour.",
+    "source": "OWASP-Top-10-for-LLMs-v2025.pdf",
+    "page": 11
+  },
+  {
+    "question": "What does supply-chain risk mean for LLM applications?",
+    "expected_answer": "It concerns risks introduced through components and dependencies such as models, datasets, training methods, software packages, and third-party services in the LLM supply chain.",
+    "source": "OWASP-Top-10-for-LLMs-v2025.pdf",
+    "page": 15
+  },
+  {
+    "question": "What is data and model poisoning?",
+    "expected_answer": "It is the manipulation or corruption of training data, fine-tuning data, or model-related components to influence model behaviour or introduce vulnerabilities.",
+    "source": "OWASP-Top-10-for-LLMs-v2025.pdf",
+    "page": 20
+  },
+  {
+    "question": "What is improper output handling in an LLM application?",
+    "expected_answer": "It occurs when LLM output is passed to downstream components without appropriate validation or handling, potentially leading to security issues such as injection or execution of unsafe content.",
+    "source": "OWASP-Top-10-for-LLMs-v2025.pdf",
+    "page": 23
+  },
+  {
+    "question": "What is excessive agency in an LLM application?",
+    "expected_answer": "It is a risk caused by giving an LLM-based system excessive functionality, permissions, or autonomy, allowing unintended or harmful actions.",
+    "source": "OWASP-Top-10-for-LLMs-v2025.pdf",
+    "page": 27
+  },
+  {
+    "question": "What is system prompt leakage?",
+    "expected_answer": "It is the exposure of system prompt instructions or other information embedded in prompts that an application intended to keep confidential.",
+    "source": "OWASP-Top-10-for-LLMs-v2025.pdf",
+    "page": 30
+  },
+  {
+    "question": "What are vector and embedding weaknesses?",
+    "expected_answer": "They are weaknesses in the vector or embedding mechanisms used to represent and retrieve data, which can lead to issues such as unintended information retrieval, data exposure, or manipulation of retrieval results.",
+    "source": "OWASP-Top-10-for-LLMs-v2025.pdf",
+    "page": 33
+  },
+  {
+    "question": "What is unbounded consumption in LLM applications?",
+    "expected_answer": "It is the risk that excessive or uncontrolled use of model resources causes denial of service, unexpectedly high costs, or degraded service availability.",
+    "source": "OWASP-Top-10-for-LLMs-v2025.pdf",
+    "page": 39
+  },
+  {
+    "question": "What are the four core functions of the NIST AI Risk Management Framework (AI RMF 1.0)?",
+    "expected_answer": "GOVERN, MAP, MEASURE, and MANAGE.",
+    "source": "NIST.AI.100-1.pdf",
+    "page": 25
+  },
+  {
+    "question": "What is the goal of the NIST AI Risk Management Framework?",
+    "expected_answer": "It helps organisations designing, developing, deploying, or using AI systems manage AI risks and promote trustworthy and responsible development and use of AI systems.",
+    "source": "NIST.AI.100-1.pdf",
+    "page": 6
+  },
+  {
+    "question": "How does the NIST AI RMF define risk?",
+    "expected_answer": "Risk is a composite measure of the probability or likelihood of an event and the magnitude or degree of its consequences.",
+    "source": "NIST.AI.100-1.pdf",
+    "page": 10
+  },
+  {
+    "question": "Name the trustworthy AI characteristics listed in NIST AI RMF 1.0.",
+    "expected_answer": "Valid and reliable; safe; secure and resilient; accountable and transparent; explainable and interpretable; privacy-enhanced; and fair with harmful bias managed.",
+    "source": "NIST.AI.100-1.pdf",
+    "page": 8
+  },
+  {
+    "question": "What is the purpose of the GOVERN function in NIST AI RMF 1.0?",
+    "expected_answer": "GOVERN establishes and sustains policies, processes, procedures, and practices for managing AI risks, and is a cross-cutting function applied throughout the other functions and AI lifecycle.",
+    "source": "NIST.AI.100-1.pdf",
+    "page": 27
+  },
+  {
+    "question": "What does the MAP function do in the NIST AI RMF?",
+    "expected_answer": "MAP establishes the context for an AI system, including its intended purposes, context of use, relevant risks, impacts, and the people or organisations affected.",
+    "source": "NIST.AI.100-1.pdf",
+    "page": 30
+  },
+  {
+    "question": "What does the MEASURE function do in the NIST AI RMF?",
+    "expected_answer": "MEASURE uses appropriate methods, metrics, testing, evaluation, verification, and validation to assess and track AI risks and trustworthiness characteristics.",
+    "source": "NIST.AI.100-1.pdf",
+    "page": 34
+  },
+  {
+    "question": "What does the MANAGE function do in the NIST AI RMF?",
+    "expected_answer": "MANAGE prioritises risks and allocates resources to respond to, mitigate, or otherwise manage them, including monitoring and responding to risks over time.",
+    "source": "NIST.AI.100-1.pdf",
+    "page": 37
+  },
+  {
+    "question": "Is the NIST AI RMF intended to be mandatory and sector-specific?",
+    "expected_answer": "No. It is intended to be voluntary, rights-preserving, non-sector-specific, and use-case agnostic.",
+    "source": "NIST.AI.100-1.pdf",
+    "page": 7
+  },
+  {
+    "question": "Why does NIST describe AI systems as socio-technical?",
+    "expected_answer": "Because AI risks and benefits arise from the interaction of technical aspects with societal dynamics and human behaviour, including how systems are used, who operates them, and the context of deployment.",
+    "source": "NIST.AI.100-1.pdf",
+    "page": 6
+  },
+  {
+    "question": "What is NIST AI 600-1?",
+    "expected_answer": "It is the Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile, a companion resource to AI RMF 1.0 focused on generative AI.",
+    "source": "NIST.AI.600-1.pdf",
+    "page": 1
+  },
+  {
+    "question": "What four primary considerations informed the NIST Generative AI Profile?",
+    "expected_answer": "Governance, Content Provenance, Pre-deployment Testing, and Incident Disclosure.",
+    "source": "NIST.AI.600-1.pdf",
+    "page": 6
+  },
+  {
+    "question": "How does NIST AI 600-1 define confabulation?",
+    "expected_answer": "Confabulation is the production of confidently stated but erroneous or false content, commonly called hallucinations or fabrications.",
+    "source": "NIST.AI.600-1.pdf",
+    "page": 8
+  },
+  {
+    "question": "What is data privacy risk in generative AI according to NIST AI 600-1?",
+    "expected_answer": "It includes impacts from leakage, unauthorised use or disclosure, and de-anonymisation of biometric, health, location, or other personally identifiable or sensitive information.",
+    "source": "NIST.AI.600-1.pdf",
+    "page": 8
+  },
+  {
+    "question": "What environmental impacts of generative AI does NIST AI 600-1 identify?",
+    "expected_answer": "High computing-resource utilisation during training or operation of generative AI models and related outcomes that may adversely affect ecosystems.",
+    "source": "NIST.AI.600-1.pdf",
+    "page": 8
+  },
+  {
+    "question": "What is harmful bias or homogenisation in generative AI?",
+    "expected_answer": "It includes amplifying historical, societal, or systemic biases, performance disparities between subgroups or languages, and overly homogeneous outputs that may cause errors or harmful decisions.",
+    "source": "NIST.AI.600-1.pdf",
+    "page": 8
+  },
+  {
+    "question": "What is the purpose of pre-deployment testing for generative AI systems?",
+    "expected_answer": "It helps assess system capabilities, limitations, and risks before deployment through testing and evaluation, informing decisions about whether and how the system should be released.",
+    "source": "NIST.AI.600-1.pdf",
+    "page": 6
+  },
+  {
+    "question": "Why does NIST AI 600-1 recommend incident disclosure for generative AI?",
+    "expected_answer": "Documenting, reporting, and sharing information about generative AI incidents can help organisations understand failures and improve risk management and responses.",
+    "source": "NIST.AI.600-1.pdf",
+    "page": 57
+  },
+  {
+    "question": "What are the four AI RMF functions used to manage generative AI risks in NIST AI 600-1?",
+    "expected_answer": "GOVERN, MAP, MEASURE, and MANAGE.",
+    "source": "NIST.AI.600-1.pdf",
+    "page": 5
+  },
+  {
+    "question": "What is the NIST AI 600-1 profile intended to help organisations do?",
+    "expected_answer": "It provides suggested actions to help organisations govern, map, measure, and manage risks that are unique to or exacerbated by generative AI.",
+    "source": "NIST.AI.600-1.pdf",
+    "page": 5
+  }
+]
