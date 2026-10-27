@@ -23,8 +23,8 @@ original documents.
   fusion (RRF).
 - Applies narrowly scoped exact-phrase evidence for selected domain terms
   without replacing semantic retrieval.
-- Generates grounded answers with Ollama by default, an OpenAI-compatible API,
-  or Google's Gemini API when configured.
+- Generates grounded answers with Ollama by default, OpenAI-compatible APIs
+  including Groq, or Google's Gemini API when configured.
 - Normalizes generated citation labels to `[filename, page N]`.
 - Provides a Streamlit UI, a command-line question script, and a FastAPI
   endpoint.
@@ -44,7 +44,7 @@ flowchart TD
     F --> H[Page-level RRF fusion]
     G --> H
     H --> I[Grounded prompt with source/page context]
-    I --> J[Ollama, OpenAI-compatible, or Gemini LLM]
+    I --> J[Ollama, OpenAI-compatible including Groq, or Gemini LLM]
     J --> K[Answer with normalized citations]
     H --> L[Retrieved source list]
     K --> M[Streamlit, CLI, or FastAPI]
@@ -163,18 +163,24 @@ OPENAI_API_KEY=
 OPENAI_BASE_URL=
 OPENAI_MODEL=gpt-4o-mini
 
+GROQ_API_KEY=
+GROQ_MODEL=openai/gpt-oss-20b
+
 GEMINI_API_KEY=
 GEMINI_MODEL=gemini-3.8-flash
 
 EMBEDDING_MODEL=sentence-transformers/all-MiniLM-L6-v2
 CHUNK_SIZE=450
 CHUNK_OVERLAP=80
-TOP_K=5
+TOP_K=3
+LLM_MAX_OUTPUT_TOKENS=256
 ```
 
-`LLM_PROVIDER` must be `ollama`, `openai`, or `gemini`. `TOP_K` controls the
-default number of passages returned by the pipeline and UI; the Streamlit
-slider can select 1 through 10 for an individual question.
+`LLM_PROVIDER` must be `ollama`, `openai`, `groq`, or `gemini`. `TOP_K` controls the
+default number of passages returned by the pipeline and UI; it defaults to 3
+and the Streamlit slider can select 1 through 10 for an individual question.
+`LLM_MAX_OUTPUT_TOKENS` limits generated answer length for every provider and
+defaults to 256.
 
 ## Ollama setup
 
@@ -215,6 +221,14 @@ read only from `.env` and is never required for the default Ollama path.
 Set `LLM_PROVIDER=gemini`, provide `GEMINI_API_KEY`, and optionally set
 `GEMINI_MODEL` (the default is `gemini-3.8-flash`). The key is read only from
 `.env` and is never printed or included in prompts.
+
+### Optional Groq provider
+
+Set `LLM_PROVIDER=groq` and provide `GROQ_API_KEY`. The default model is
+`openai/gpt-oss-20b`, using Groq's OpenAI-compatible endpoint. For Streamlit
+Cloud, add `GROQ_API_KEY` and optionally `GROQ_MODEL` under the app's Secrets
+settings. For local development, set them in `.env`. Keys are never printed or
+included in prompts.
 
 ## Index the four PDFs
 

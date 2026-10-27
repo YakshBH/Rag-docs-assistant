@@ -1,10 +1,12 @@
 import re
+import time
 
 from src.config import PROCESSED_DATA_DIR, TOP_K
 from src.generation.citations import ground_citations
 from src.generation.llm import generate_answer
 from src.generation.prompts import build_prompt
 from src.retrieval.retriever import retrieve
+from src.performance import log_total, timed_stage
 
 
 _INSUFFICIENT_CONTEXT = "I could not find this answer in the indexed documents."
@@ -70,9 +72,11 @@ def _add_dpdp_section_3_context(passages: list[dict]) -> list[dict] | None:
 
 
 def answer_question(question: str, top_k: int = TOP_K) -> dict:
+    started = time.perf_counter()
     if not question or not question.strip():
         raise ValueError("Please enter a question.")
-    passages = retrieve(question, top_k=top_k)
+    with timed_stage("retrieval total"):
+        passages = retrieve(question, top_k=top_k)
     if _is_dpdp_territorial_question(question):
         passages = _add_dpdp_section_3_context(passages)
         if passages is None:
@@ -103,4 +107,6 @@ def answer_question(question: str, top_k: int = TOP_K) -> dict:
         if key not in seen:
             seen.add(key)
             sources.append({"source": key[0], "page": key[1]})
-    return {"answer": answer, "sources": sources, "retrieved_count": len(passages)}
+    result = {"answer": answer, "sources": sources, "retrieved_count": len(passages)}
+    log_total("question total", started, passages=len(passages))
+    return result

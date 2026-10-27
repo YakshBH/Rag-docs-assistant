@@ -11,6 +11,7 @@ from src.config import (
     PROCESSED_DATA_DIR,
     RAW_DATA_DIR,
 )
+from src.performance import timed_stage
 
 _client = None
 _EXACT_PHRASES = (
@@ -37,8 +38,11 @@ def ensure_index_built(force: bool = False) -> bool:
     from src.ingest.chunker import chunk_pages
     from src.ingest.parse_pdf import parse_directory
 
-    collection = get_collection()
-    if not force and collection.count() > 0:
+    with timed_stage("Chroma collection access", operation="bootstrap"):
+        collection = get_collection()
+    with timed_stage("ChromaDB index count", operation="bootstrap"):
+        indexed_count = collection.count()
+    if not force and indexed_count > 0:
         return True
 
     pdfs = list(RAW_DATA_DIR.glob("*.pdf")) if RAW_DATA_DIR.exists() else []
@@ -58,7 +62,9 @@ def ensure_index_built(force: bool = False) -> bool:
     if not chunks:
         return False
 
-    if not force and collection.count() > 0:
+    with timed_stage("ChromaDB index count", operation="recheck"):
+        indexed_count = collection.count()
+    if not force and indexed_count > 0:
         return True
 
     reset_collection()
@@ -96,25 +102,33 @@ def add_chunks(chunks: list[dict], batch_size: int = 64) -> int:
 
 
 def search_chunks(query: str, top_k: int = 5) -> list[dict]:
-    from src.index.embedder import embed_query
+    with timed_stage("embedding module import"):
+        from src.index.embedder import embed_query
 
-    collection = get_collection()
-    if collection.count() == 0:
+    with timed_stage("Chroma collection access", operation="semantic"):
+        collection = get_collection()
+    with timed_stage("ChromaDB index count", operation="semantic"):
+        indexed_count = collection.count()
+    if indexed_count == 0:
         return []
-    result = collection.query(
-        query_embeddings=[embed_query(query)],
-        n_results=min(top_k, collection.count()),
-        include=["documents", "metadatas", "distances"],
-    )
-    matches = []
-    for i, document in enumerate(result["documents"][0]):
-        metadata = result["metadatas"][0][i]
-        matches.append({
-            "text": document,
-            "source": metadata.get("source", "unknown"),
-            "page": metadata.get("page", "?"),
-            "distance": result["distances"][0][i],
-        })
+    with timed_stage("query embedding"):
+        query_embedding = embed_query(query)
+    with timed_stage("ChromaDB retrieval", top_k=top_k):
+        result = collection.query(
+            query_embeddings=[query_embedding],
+            n_results=min(top_k, indexed_count),
+            include=["documents", "metadatas", "distances"],
+        )
+    with timed_stage("Chroma result normalization", matches=len(result["documents"][0])):
+        matches = []
+        for i, document in enumerate(result["documents"][0]):
+            metadata = result["metadatas"][0][i]
+            matches.append({
+                "text": document,
+                "source": metadata.get("source", "unknown"),
+                "page": metadata.get("page", "?"),
+                "distance": result["distances"][0][i],
+            })
     return matches
 def _tokens(text: str) -> list[str]:
     return re.findall(r"[a-z0-9]+(?:['-][a-z0-9]+)?", text.lower())
@@ -133,9 +147,12 @@ def _phrase_matches(query: str, document: str) -> list[str]:
 
 def keyword_search_chunks(query: str, top_k: int = 50) -> list[dict]:
     """Search the indexed chunks with BM25 rather than substring counting."""
-    collection = get_collection()
+    with timed_stage("Chroma collection access", operation="BM25"):
+        collection = get_collection()
 
-    if collection.count() == 0:
+    with timed_stage("ChromaDB index count", operation="BM25"):
+        indexed_count = collection.count()
+    if indexed_count == 0:
         return []
 
     result = collection.get(

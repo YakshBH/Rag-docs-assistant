@@ -28,7 +28,8 @@ Every factual answer must include one or more citations in exactly the form
 {citation_list}
 Never invent filenames, page numbers, quotations, section numbers, or legal
 provisions. Put the citation immediately after the claim it supports.
-Be concise and distinguish what the text explicitly says from any uncertainty.
+Be concise, avoid repeating the same information, and distinguish what the text
+explicitly says from any uncertainty.
 {legal_guidance}
 
 DOCUMENT EXCERPTS:

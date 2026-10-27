@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
+from src.config import TOP_K
 from src.pipeline import answer_question
 
 app = FastAPI(title="RAG Documents Assistant", version="0.1.0")
@@ -7,7 +8,7 @@ app = FastAPI(title="RAG Documents Assistant", version="0.1.0")
 
 class AskRequest(BaseModel):
     question: str = Field(min_length=1, max_length=2000)
-    top_k: int = Field(default=5, ge=1, le=10)
+    top_k: int = Field(default=TOP_K, ge=1, le=10)
 
 
 @app.get("/")

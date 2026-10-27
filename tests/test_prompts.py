@@ -9,6 +9,7 @@ def test_prompt_includes_question_and_source():
     assert "What is the rule?" in prompt
     assert "act.pdf, page 7" in prompt
     assert "not contain enough evidence" in prompt
+    assert "avoid repeating the same information" in prompt
 
 
 def test_prompt_restricts_citations_to_retrieved_pages():
