@@ -2,6 +2,10 @@ from src.index import vector_store
 from src.retrieval import retriever
 
 
+def test_index_bootstrap_is_exported_from_vector_store_module():
+    assert callable(vector_store.ensure_index_built)
+
+
 def test_retrieve_builds_index_when_missing(monkeypatch):
     calls = []
 

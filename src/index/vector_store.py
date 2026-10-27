@@ -11,9 +11,6 @@ from src.config import (
     PROCESSED_DATA_DIR,
     RAW_DATA_DIR,
 )
-from src.ingest.chunker import chunk_pages
-from src.ingest.parse_pdf import parse_directory
-from src.index.embedder import embed_texts, embed_query
 
 _client = None
 _EXACT_PHRASES = (
@@ -37,6 +34,9 @@ def get_collection():
 
 def ensure_index_built(force: bool = False) -> bool:
     """Build the Chroma index once when PDFs are present and the collection is empty."""
+    from src.ingest.chunker import chunk_pages
+    from src.ingest.parse_pdf import parse_directory
+
     collection = get_collection()
     if not force and collection.count() > 0:
         return True
@@ -80,6 +80,8 @@ def reset_collection():
 def add_chunks(chunks: list[dict], batch_size: int = 64) -> int:
     if not chunks:
         return 0
+    from src.index.embedder import embed_texts
+
     collection = get_collection()
     for offset in range(0, len(chunks), batch_size):
         batch = chunks[offset:offset + batch_size]
@@ -94,6 +96,8 @@ def add_chunks(chunks: list[dict], batch_size: int = 64) -> int:
 
 
 def search_chunks(query: str, top_k: int = 5) -> list[dict]:
+    from src.index.embedder import embed_query
+
     collection = get_collection()
     if collection.count() == 0:
         return []
