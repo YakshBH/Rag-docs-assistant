@@ -23,8 +23,8 @@ original documents.
   fusion (RRF).
 - Applies narrowly scoped exact-phrase evidence for selected domain terms
   without replacing semantic retrieval.
-- Generates grounded answers with Ollama by default, or an
-  OpenAI-compatible API when configured.
+- Generates grounded answers with Ollama by default, an OpenAI-compatible API,
+  or Google's Gemini API when configured.
 - Normalizes generated citation labels to `[filename, page N]`.
 - Provides a Streamlit UI, a command-line question script, and a FastAPI
   endpoint.
@@ -44,7 +44,7 @@ flowchart TD
     F --> H[Page-level RRF fusion]
     G --> H
     H --> I[Grounded prompt with source/page context]
-    I --> J[Ollama or OpenAI-compatible LLM]
+    I --> J[Ollama, OpenAI-compatible, or Gemini LLM]
     J --> K[Answer with normalized citations]
     H --> L[Retrieved source list]
     K --> M[Streamlit, CLI, or FastAPI]
@@ -102,8 +102,8 @@ rag-docs-assistant/
   - `NIST.AI.100-1.pdf`
   - `NIST.AI.600-1.pdf`
   - `OWASP-Top-10-for-LLMs-v2025.pdf`
-- Ollama and the configured model for local answer generation, or an
-  OpenAI-compatible provider and API key.
+- Ollama and the configured model for local answer generation, an
+  OpenAI-compatible provider and API key, or a Gemini API key.
 
 Scanned PDFs are not supported by the current ingestion script because OCR is
 not included.
@@ -163,13 +163,16 @@ OPENAI_API_KEY=
 OPENAI_BASE_URL=
 OPENAI_MODEL=gpt-4o-mini
 
+GEMINI_API_KEY=
+GEMINI_MODEL=gemini-3.8-flash
+
 EMBEDDING_MODEL=sentence-transformers/all-MiniLM-L6-v2
 CHUNK_SIZE=450
 CHUNK_OVERLAP=80
 TOP_K=5
 ```
 
-`LLM_PROVIDER` must be either `ollama` or `openai`. `TOP_K` controls the
+`LLM_PROVIDER` must be `ollama`, `openai`, or `gemini`. `TOP_K` controls the
 default number of passages returned by the pipeline and UI; the Streamlit
 slider can select 1 through 10 for an individual question.
 
@@ -206,6 +209,12 @@ timeout.
 Set `LLM_PROVIDER=openai`, provide `OPENAI_API_KEY`, and set
 `OPENAI_BASE_URL` and `OPENAI_MODEL` when required by the provider. The key is
 read only from `.env` and is never required for the default Ollama path.
+
+### Optional Gemini provider
+
+Set `LLM_PROVIDER=gemini`, provide `GEMINI_API_KEY`, and optionally set
+`GEMINI_MODEL` (the default is `gemini-3.8-flash`). The key is read only from
+`.env` and is never printed or included in prompts.
 
 ## Index the four PDFs
 
