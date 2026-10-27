@@ -1,8 +1,18 @@
 import math
 import re
+from pathlib import Path
 
 import chromadb
-from src.config import CHROMA_DIR, COLLECTION_NAME
+from src.config import (
+    CHROMA_DIR,
+    CHUNK_OVERLAP,
+    CHUNK_SIZE,
+    COLLECTION_NAME,
+    PROCESSED_DATA_DIR,
+    RAW_DATA_DIR,
+)
+from src.ingest.chunker import chunk_pages
+from src.ingest.parse_pdf import parse_directory
 from src.index.embedder import embed_texts, embed_query
 
 _client = None
@@ -23,6 +33,37 @@ def get_collection():
         name=COLLECTION_NAME,
         metadata={"hnsw:space": "cosine"},
     )
+
+
+def ensure_index_built(force: bool = False) -> bool:
+    """Build the Chroma index once when PDFs are present and the collection is empty."""
+    collection = get_collection()
+    if not force and collection.count() > 0:
+        return True
+
+    pdfs = list(RAW_DATA_DIR.glob("*.pdf")) if RAW_DATA_DIR.exists() else []
+    if not pdfs:
+        return False
+
+    pages = parse_directory(RAW_DATA_DIR)
+    if not pages:
+        return False
+
+    PROCESSED_DATA_DIR.mkdir(parents=True, exist_ok=True)
+    for page in pages:
+        output = PROCESSED_DATA_DIR / f"{Path(page['source']).stem}_page_{page['page']}.txt"
+        output.write_text(page["text"], encoding="utf-8")
+
+    chunks = chunk_pages(pages, chunk_size=CHUNK_SIZE, overlap=CHUNK_OVERLAP)
+    if not chunks:
+        return False
+
+    if not force and collection.count() > 0:
+        return True
+
+    reset_collection()
+    add_chunks(chunks)
+    return True
 
 
 def reset_collection():

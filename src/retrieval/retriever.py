@@ -1,5 +1,6 @@
 from src.config import TOP_K
 from src.index.vector_store import (
+    ensure_index_built,
     search_chunks,
     keyword_search_chunks,
 )
@@ -11,6 +12,7 @@ def retrieve(question: str, top_k: int = TOP_K) -> list[dict]:
     if not question:
         return []
 
+    ensure_index_built()
     candidate_k = max(top_k * 10, 50)
 
     semantic_results = search_chunks(

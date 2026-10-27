@@ -6,7 +6,10 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 import streamlit as st
+from src.index.vector_store import ensure_index_built
 from src.pipeline import answer_question
+
+ensure_index_built()
 
 st.set_page_config(page_title="RAG Documents Assistant", page_icon="📚", layout="wide")
 st.title("📚 RAG Documents Assistant")
